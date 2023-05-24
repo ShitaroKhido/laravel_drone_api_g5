@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Drone_lacation extends Model
 {
     use HasFactory;
-}
+    protected $fillable =[
+        'latitude',
+        'logitude',
+        'drone_id',
+    ];
+    // drone location belong to one drone
+    public function drones()
+    {
+        return $this->belongsTo(Drone::class, 'drone_id');
+    }
+ }
+

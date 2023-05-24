@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Instrction;
+use App\Models\Instruction;
 use Illuminate\Http\Request;
 
-class InstrctionController extends Controller
+class InstructionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class InstrctionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Instrction $instrction)
+    public function show(Instruction $instruction)
     {
         //
     }
@@ -42,7 +42,7 @@ class InstrctionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Instrction $instrction)
+    public function edit(Instruction $instruction)
     {
         //
     }
@@ -50,7 +50,7 @@ class InstrctionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Instrction $instrction)
+    public function update(Request $request, Instruction $instruction)
     {
         //
     }
@@ -58,7 +58,7 @@ class InstrctionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Instrction $instrction)
+    public function destroy(Instruction $instruction)
     {
         //
     }

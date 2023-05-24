@@ -12,7 +12,7 @@ class DroneController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**

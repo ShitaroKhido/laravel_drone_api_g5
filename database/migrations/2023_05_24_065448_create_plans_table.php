@@ -17,23 +17,19 @@ return new class extends Migration
             $table->unsignedBigInteger('drone_id');
             $table->foreign('drone_id')
                 ->references('id')
-                ->on('drones')
-                ->onDelete('cascade');
+                ->on('drones');
             $table->unsignedBigInteger('instruction_id');
             $table->foreign('instruction_id')
                 ->references('id')
-                ->on('instructions')
-                ->onDelete('cascade');
+                ->on('instructions');
             $table->unsignedBigInteger('farm_id');
             $table->foreign('farm_id')
                 ->references('id')
-                ->on('farms')
-                ->onDelete('cascade');
+                ->on('farms');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+                ->on('users');
             $table->timestamps();
         });
     }

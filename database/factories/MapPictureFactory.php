@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Drone;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,8 +18,8 @@ class MapPictureFactory extends Factory
     public function definition(): array
     {
         return [
-            //
             'scanned_map'=> $this->faker->unique()->sentence(),
+            'drone_id'=>$this->faker->numberBetween(1,count(Drone::all()))
         ];
     }
 }

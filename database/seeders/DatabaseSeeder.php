@@ -8,6 +8,7 @@ use App\Models\Drone;
 use App\Models\DroneLocation;
 use App\Models\Farm;
 use App\Models\Instruction;
+use App\Models\MapPicture;
 use App\Models\Plan;
 use App\Models\Province;
 use App\Models\User;
@@ -20,19 +21,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
         
         // create user data 
-        // User::factory(2)->create();
+        User::factory(2)->create();
         // create drone data
-        // Drone::factory(5)->create();
+        Drone::factory(5)->create();
         // create done location data
-        // DroneLocation::factory(5)->create();
+        DroneLocation::factory(5)->create();
         //create province data
         Province::factory(5)->create();
         // create instruction data 
@@ -41,6 +36,8 @@ class DatabaseSeeder extends Seeder
         Farm::factory(5)->create();
         // create plan data 
         Plan::factory(5)->create();
+        // create map picture data
+        MapPicture::factory(5)->create();
 
 
 

@@ -34,7 +34,7 @@ class MapPictureController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Map_picture $map_picture)
+    public function show( )
     {
         //
     }
@@ -42,7 +42,7 @@ class MapPictureController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Map_picture $map_picture)
+    public function edit()
     {
         //
     }
@@ -50,7 +50,7 @@ class MapPictureController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Map_picture $map_picture)
+    public function update(Request $request)
     {
         //
     }
@@ -58,7 +58,7 @@ class MapPictureController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Map_picture $map_picture)
+    public function destroy( )
     {
         //
     }

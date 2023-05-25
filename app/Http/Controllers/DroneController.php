@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Drone;
+use App\Models\DroneLocation;
 use Illuminate\Http\Request;
 
 class DroneController extends Controller
@@ -14,12 +15,13 @@ class DroneController extends Controller
     {
         // get list of drone 
         $drones = Drone::all();
-        return response()->json(['message' =>  'All drones','data' => $drones],200);
+        return response()->json(['message' =>  'All drones', 'data' => $drones], 200);
     }
 
-    public function getDroneLocation(string $id ){
+    public function getDroneLocation(string $id)
+    {
         // return "hi";
-        return Drone::with('drone_locations' , 'latitude')->get();
+        return DroneLocation::where('drone_id', $id)->first();
     }
 
     /**
@@ -40,7 +42,7 @@ class DroneController extends Controller
         return response()->json(['message' => 'Show drone on id : ' . $id, 'data' => $drones], 200);
     }
 
-  
+
 
     /**
      * Update the specified resource in storage.

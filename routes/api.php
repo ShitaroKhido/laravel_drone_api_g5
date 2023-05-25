@@ -11,7 +11,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('drones', DroneController::class);
-Route::get('/getdronelocation/{id}', [DroneController::class, 'getDroneLocation']);
+Route::get('/drones/{id}/location', [DroneController::class, 'getDroneLocation']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

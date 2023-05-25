@@ -12,7 +12,7 @@ class Drone extends Model
         'name',
         'model',
         'serial_number',
-        'battery_bapacity',
+        'battery_capacity',
         'payload_size',
         'status',
         'user_id',

@@ -35,6 +35,6 @@ class Drone extends Model
     // drone has many drone_location
    public function drone_locations()
     {
-        return $this->hasMany(Drone_lacation::class, 'drone_id');
+        return $this->hasMany(DroneLocation::class, 'drone_id');
     } 
 }   

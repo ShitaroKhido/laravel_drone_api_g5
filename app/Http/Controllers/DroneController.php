@@ -12,15 +12,14 @@ class DroneController extends Controller
      */
     public function index()
     {
-        
+        // get list of drone 
+        $drones = Drone::all();
+        return response()->json(['message' =>  'All drones','data' => $drones],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function getDroneLocation(string $id ){
+        // return "hi";
+        return Drone::with('drone_locations' , 'latitude')->get();
     }
 
     /**
@@ -34,18 +33,14 @@ class DroneController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Drone $drone)
+    public function show(string $id)
     {
-        //
+        //​​ Output information about drone id 
+        $drones = Drone::find($id);
+        return response()->json(['message' => 'Show drone on id : ' . $id, 'data' => $drones], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Drone $drone)
-    {
-        //
-    }
+  
 
     /**
      * Update the specified resource in storage.

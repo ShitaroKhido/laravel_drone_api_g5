@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DroneController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
@@ -11,8 +10,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('drones' , DroneController::class);
-Route::get('/getdronelocation/{id}',[DroneController::class ,'getDroneLocation']);
+Route::resource('drones', DroneController::class);
+Route::get('/getdronelocation/{id}', [DroneController::class, 'getDroneLocation']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->dateTime('assigned_datetime');
             $table->unsignedBigInteger('drone_id');
             $table->foreign('drone_id')

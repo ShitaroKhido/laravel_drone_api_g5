@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Map_picture;
+use App\Models\MapPicture;
 use Illuminate\Http\Request;
 
 class MapPictureController extends Controller
@@ -12,7 +13,9 @@ class MapPictureController extends Controller
      */
     public function index()
     {
-        //
+        //Show a list of the map images our drone cameras made
+        $images = MapPicture::all();
+        return response()->json(['message' => 'this is an images' , 'data' => $images],200);
     }
 
     /**

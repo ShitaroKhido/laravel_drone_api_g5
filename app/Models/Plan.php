@@ -10,9 +10,10 @@ class Plan extends Model
 {
     use HasFactory;    use HasFactory;
     protected $fillable =[
+        'name',
         'assigned_datetime',
         'drone_id',
-        'instrction_id',
+        'instruction_id',
         'farm_id',
         'user_id',
     ];

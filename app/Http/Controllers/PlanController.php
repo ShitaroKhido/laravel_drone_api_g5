@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Plan;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class PlanController extends Controller
 {
     /**
@@ -12,15 +12,9 @@ class PlanController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        //list all plan
+        $plans = Plan::all();
+        return response()->json(['message' => 'This is list plan' , 'data' => $plans],200);
     }
 
     /**
@@ -28,7 +22,31 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         //validation
+         $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|max:30',
+                'assigned_datetime' => 'required',
+                'drone_id' => 'required',
+                'instruction_id' => 'required',
+                'farm_id' => 'required',
+                'user_id' => 'required',
+            ]
+        );
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        //add plan 
+        $plans = Plan::create([
+            'name'=>$request['name'],
+            'assigned_datetime'=>$request['assigned_datetime'],
+            'drone_id'=>$request['drone_id'],
+            'instruction_id'=>$request['instruction_id'],
+            'farm_id'=>$request['farm_id'],
+            'user_id'=>$request['user_id'],
+        ]);
+        return response()->json(['message' => 'create plan successfully !' , 'data' => $plans],201);
     }
 
     /**

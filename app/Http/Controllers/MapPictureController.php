@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Map_picture;
 use App\Models\MapPicture;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\FuncCall;
 
 class MapPictureController extends Controller
 {
@@ -18,14 +19,7 @@ class MapPictureController extends Controller
         return response()->json(['message' => 'this is an images' , 'data' => $images],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
+  
     /**
      * Store a newly created resource in storage.
      */
@@ -38,14 +32,6 @@ class MapPictureController extends Controller
      * Display the specified resource.
      */
     public function show( )
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit()
     {
         //
     }

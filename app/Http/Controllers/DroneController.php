@@ -62,8 +62,17 @@ class DroneController extends Controller
         $drones = Drone::find($id);
         return response()->json(['message' => 'Show drone on id : ' . $id, 'data' => $drones], 200);
     }
-
-
+    
+    
+    // Instruct drone id to enter run mode with a given plan
+    public function instructDroneById(string $id)
+    {
+        $drone = Drone::find($id)->first();
+        if($drone->status == "idle"){
+            $drone->status = 'Running';
+        }
+        $drone->save();
+        return response()->json(['message' => 'Drone running on id : ' .$id , 'data' => $drone], 200);    }
 
     /**
      * Update the specified resource in storage.

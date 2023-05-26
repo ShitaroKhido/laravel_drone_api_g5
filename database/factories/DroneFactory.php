@@ -25,7 +25,6 @@ class DroneFactory extends Factory
             'serial_number'=> $this->faker->unique()->sentence(),
             'battery_capacity'=> $this->faker->numberBetween(2500,7000),
             'payload_size'=> $this->faker->numberBetween(3,50),
-            'status'=> $this->faker->unique()->sentence(),
             'user_id'=>$this->faker->numberBetween(1,count(User::all()))
         ];
     }

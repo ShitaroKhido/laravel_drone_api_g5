@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('serial_number');
             $table->integer('battery_capacity');
             $table->integer('payload_size');
-            $table->string('status');
+            $table->string('status')->default('idle');
             $table->unsignedBigInteger('user_id');
             $table -> foreign('user_id')
                    ->references('id')

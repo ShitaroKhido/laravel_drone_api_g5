@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Drone;
 use App\Models\Instruction;
 use Illuminate\Http\Request;
 
@@ -12,15 +13,14 @@ class InstructionController extends Controller
      */
     public function index()
     {
-        //
+        //get all instruction 
+        $instructions = Instruction::all();
+        return response()->json(['messsage' => 'All Instructions', 'data' => $instructions], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function requestDroneInstructions(Drone $drone)
     {
-        //
+        return ;
     }
 
     /**
@@ -39,13 +39,6 @@ class InstructionController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Instruction $instruction)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

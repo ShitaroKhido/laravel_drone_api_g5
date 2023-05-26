@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DroneController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\InstructionController;
 use App\Http\Controllers\MapPictureController;
 use App\Http\Controllers\PlanController;
 use Illuminate\Http\Request;
@@ -12,6 +13,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// update  instrct drone by id 
+Route::put('/drones/{id}', [DroneController::class , 'instructDroneById']);
+// Instruction 
+Route::get('/instructions' , [InstructionController::class, 'requestDroneInstructions']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

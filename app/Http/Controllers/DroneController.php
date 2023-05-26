@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDronesRequest;
 use App\Models\Drone;
 use App\Models\DroneLocation;
+use Illuminate\Support\Str;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -90,5 +91,15 @@ class DroneController extends Controller
         if (Drone::find($id) !== null) {
             Drone::find($id)->delete();
         }
+    }
+
+    public function sendImage(Request $request)
+    {
+        // $files = $request->file()->getClientOriginalName();
+        // return $this->success($files);
+        return [
+            $request->file('image')->getClientOriginalName(),
+            $request->file('image')->getClientOriginalExtension(),
+        ];
     }
 }

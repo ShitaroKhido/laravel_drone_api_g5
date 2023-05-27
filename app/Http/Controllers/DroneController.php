@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class DroneController extends Controller
@@ -112,17 +113,15 @@ class DroneController extends Controller
     {
         if ($request->hasFile('image')) {
             $imgFile = $request->file('image');
-            $droneID = $request->drone_id;
-            $farmID = $request->farm_id;
+            $inputData = $request->input();
             $imgFile->store('public/images/');
             MapPicture::create(
                 [
-                    'scanned_map' => $imgFile->getClientOriginalName(),
-                    'drone_id' => $droneID,
-                    'farm_id' => $farmID,
+                    'scanned_map' => $imgFile->hashName(),
+                    'drone_id' => (int)$inputData['drone_id'],
+                    'farm_id' => (int)$inputData['farm_id'],
                 ]
             );
-
             return response($imgFile->getClientOriginalName());
         }
     }
@@ -134,8 +133,22 @@ class DroneController extends Controller
             ->first()
             ->id;
         $farmID = Farm::where('province_id', $locationID)
-            ->get();
+            ->get('id')
+            ->first()->id;
+        $picName  = MapPicture::where(
+            'farm_id',
+            $farmID
+        )->get('scanned_map')
+            ->last()
+            ->scanned_map;
 
-        return MapPicture::find($farmID);
+        $path = storage_path("app\public\images\\") . $picName;
+
+        if (File::exists($path)) {
+
+            return response()->download($path);
+        }
+
+        return $this->error(null, 'Map is unavailable!', 404);;
     }
 }

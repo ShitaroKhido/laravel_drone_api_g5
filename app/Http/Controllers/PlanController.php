@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
 class PlanController extends Controller
 {
     /**
@@ -14,7 +15,7 @@ class PlanController extends Controller
     {
         //list all plan
         $plans = Plan::all();
-        return response()->json(['message' => 'This is list plan' , 'data' => $plans],200);
+        return response()->json(['message' => 'This is list plan', 'data' => $plans], 200);
     }
 
     /**
@@ -22,8 +23,8 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-         //validation
-         $validator = Validator::make(
+        //validation
+        $validator = Validator::make(
             $request->all(),
             [
                 'name' => 'required|max:30',
@@ -39,14 +40,14 @@ class PlanController extends Controller
         }
         //add plan 
         $plans = Plan::create([
-            'name'=>$request['name'],
-            'assigned_datetime'=>$request['assigned_datetime'],
-            'drone_id'=>$request['drone_id'],
-            'instruction_id'=>$request['instruction_id'],
-            'farm_id'=>$request['farm_id'],
-            'user_id'=>$request['user_id'],
+            'name' => $request['name'],
+            'assigned_datetime' => $request['assigned_datetime'],
+            'drone_id' => $request['drone_id'],
+            'instruction_id' => $request['instruction_id'],
+            'farm_id' => $request['farm_id'],
+            'user_id' => $request['user_id'],
         ]);
-        return response()->json(['message' => 'create plan successfully !' , 'data' => $plans],201);
+        return response()->json(['message' => 'create plan successfully !', 'data' => $plans], 201);
     }
 
     /**
@@ -57,19 +58,18 @@ class PlanController extends Controller
         //show plan by id 
         $plans = Plan::find($id);
         return response()->json(['message' => 'Show drone on id : ' . $id, 'data' => $plans], 200);
-
     }
 
-    
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request,  $id)
     {
-    //update plan by id
-         //validation
-         $validator = Validator::make(
+        //update plan by id
+        //validation
+        $validator = Validator::make(
             $request->all(),
             [
                 'name' => 'required|max:30',
@@ -83,17 +83,15 @@ class PlanController extends Controller
         if ($validator->fails()) {
             return $validator->errors();
         }
-        $plans = Plan::where('id',$id)->update([
-            'name'=>$request['name'],
-            'assigned_datetime'=>$request['assigned_datetime'],
-            'drone_id'=>$request['drone_id'],
-            'instruction_id'=>$request['instruction_id'],
-            'farm_id'=>$request['farm_id'],
-            'user_id'=>$request['user_id'],
+        $plans = Plan::where('id', $id)->update([
+            'name' => $request['name'],
+            'assigned_datetime' => $request['assigned_datetime'],
+            'drone_id' => $request['drone_id'],
+            'instruction_id' => $request['instruction_id'],
+            'farm_id' => $request['farm_id'],
+            'user_id' => $request['user_id'],
         ]);
-        return response()->json(['message' => 'update plan successfully !' , 'data' => $plans],200);
-
-        
+        return response()->json(['message' => 'update plan successfully !', 'data' => $plans], 200);
     }
 
     /**
@@ -103,6 +101,13 @@ class PlanController extends Controller
     {
         // delete plan by id
         $plans = Plan::destroy($id);
-        return response()->json(['message' => 'Delete successfully', 'data' =>$plans],200);
+        return response()->json(['message' => 'Delete successfully', 'data' => $plans], 200);
+    }
+
+    //    Request plan named (ex: order 11) from plan database 
+    public function reqestPlanName($name)
+    {
+        $planName =  Plan::where('name',$name)->get()->last();
+        return response()->json(['message' => 'get plan name successfully!' ,'data'=>$planName],200);
     }
 }

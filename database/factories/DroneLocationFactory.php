@@ -20,7 +20,7 @@ class DroneLocationFactory extends Factory
         return [
             //
             'latitude'=> $this->faker->unique()->sentence(),
-            'logitude'=> $this->faker->unique()->sentence(),
+            'longitude'=> $this->faker->unique()->sentence(),
             'drone_id'=>$this->faker->numberBetween(1,count(Drone::all()))
         ];
     }

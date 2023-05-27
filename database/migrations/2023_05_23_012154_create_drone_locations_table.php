@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('drone_locations', function (Blueprint $table) {
             $table->id();
             $table->string('latitude');
-            $table->string('logitude');
+            $table->string('longitude');
             $table->unsignedBigInteger('drone_id');
             $table -> foreign('drone_id')
                    ->references('id')

@@ -10,7 +10,7 @@ class DroneLocation extends Model
     use HasFactory;
     protected $fillable =[
         'latitude',
-        'logitude',
+        'longitude',
         'drone_id',
     ];
     // drone location belong to one drone

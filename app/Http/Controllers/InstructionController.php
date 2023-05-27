@@ -20,7 +20,7 @@ class InstructionController extends Controller
 
     public function requestDroneInstructions(Drone $drone)
     {
-        return ;
+        return Drone::with('plans' ,'plans.instruction_id')->get();
     }
 
     /**

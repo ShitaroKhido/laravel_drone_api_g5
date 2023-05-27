@@ -89,6 +89,7 @@ class DroneController extends Controller
         ];
 
         Drone::find($id)->where('user_id', Auth::user()->id)->update($properties);
+        return $properties;
     }
 
     /**

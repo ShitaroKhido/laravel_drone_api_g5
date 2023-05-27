@@ -7,15 +7,13 @@ use App\Models\Drone;
 use App\Models\DroneLocation;
 use App\Models\Farm;
 use App\Models\MapPicture;
-use App\Models\Plan;
 use App\Models\Province;
-use Illuminate\Support\Str;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+
 class DroneController extends Controller
 {
     use HttpResponses;
@@ -26,7 +24,7 @@ class DroneController extends Controller
     {
         // get list of drone 
         $drones = Drone::all();
-        return response()->json(['message' =>  'All drones', 'data' => $drones], 200);
+        return $this->success($drones, 'All drones');
     }
 
     /**
@@ -36,7 +34,7 @@ class DroneController extends Controller
     public function getDroneLocation(string $id)
     {
         $droneLocation =  DroneLocation::where('drone_id', $id)->first();
-        return response()->json(['message'=> 'get drone location successfully!', 'data' =>$droneLocation],200); 
+        return $this->success($droneLocation, 'get drone location successfully!');
     }
 
     /**
@@ -68,7 +66,7 @@ class DroneController extends Controller
     {
         //​​ Output information about drone id 
         $drones = Drone::find($id);
-        return response()->json(['message' => 'Show drone on id : ' . $id, 'data' => $drones], 200);
+        return $this->success($drones, 'Show drone on id :' . $id, 200);
     }
 
 
@@ -80,14 +78,14 @@ class DroneController extends Controller
             $drone->status = 'Running';
         }
         $drone->save();
-        return response()->json(['message' => 'Drone running on id : ' . $id, 'data' => $drone], 200);
+        return $this->success($drone, 'Drone running on id :' . $id, 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
 
-    public function update(Request $request , $id)
+    public function update(Request $request, $id)
     {
         //validation
         $validator = Validator::make(
@@ -102,7 +100,7 @@ class DroneController extends Controller
         );
         if ($validator->fails()) {
             return $validator->errors();
-        }   
+        }
         $drones = Drone::where('id', $id)->update([
             'name' => $request->name,
             'model' => $request->model,
@@ -111,7 +109,7 @@ class DroneController extends Controller
             'payload_size' => $request->payload_size,
             'status' => $request->status,
         ]);
-        return $request->all(); 
+        return $this->success($drones, 'Successfully updated!!', 200);
     }
 
     /**
@@ -166,6 +164,4 @@ class DroneController extends Controller
 
         return $this->error(null, 'Map is unavailable!', 404);;
     }
-
-    
 }

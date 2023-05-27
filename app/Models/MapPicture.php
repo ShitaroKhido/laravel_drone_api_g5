@@ -17,4 +17,9 @@ class MapPicture extends Model
     {
         return $this->belongsTo(Drone::class, 'drone_id');
     }
+
+    public function farms()
+    {
+        return $this->belongsTo(Farm::class);
+    }
 }

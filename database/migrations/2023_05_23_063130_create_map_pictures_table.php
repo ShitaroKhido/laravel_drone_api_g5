@@ -15,9 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('scanned_map');
             $table->unsignedBigInteger('drone_id');
-            $table -> foreign('drone_id')
-                   ->references('id')
-                   ->on('drones');
+            $table->foreign('drone_id')
+                ->references('id')
+                ->on('drones');
+            $table->unsignedBigInteger('farm_id');
+            $table->foreign('farm_id')
+                ->references('id')
+                ->on('farms');
             $table->timestamps();
         });
     }

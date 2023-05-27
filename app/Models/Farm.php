@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Farm extends Model
 {
     use HasFactory;
-    protected $fillable =[
+    protected $fillable = [
         'area',
         'name',
         'province_id',
@@ -22,5 +22,10 @@ class Farm extends Model
     public function plans()
     {
         return $this->hasMany(Plan::class, 'farm_id');
+    }
+
+    public function mapPictures()
+    {
+        return $this->hasMany(MapPicture::class, 'farm_id');
     }
 }

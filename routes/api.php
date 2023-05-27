@@ -22,6 +22,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 
 Route::get('/maps/{location}/{id}', [DroneController::class, 'downloadImg']);
+Route::delete('/maps/{location}/{id}', [DroneController::class, 'deleteMap']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // Uploading image:

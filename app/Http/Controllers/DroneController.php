@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDronesRequest;
 use App\Models\Drone;
 use App\Models\DroneLocation;
+use App\Models\Farm;
 use App\Models\MapPicture;
 use App\Models\Province;
 use Illuminate\Support\Str;
@@ -111,19 +112,30 @@ class DroneController extends Controller
     {
         if ($request->hasFile('image')) {
             $imgFile = $request->file('image');
+            $droneID = $request->drone_id;
+            $farmID = $request->farm_id;
             $imgFile->store('public/images/');
-            response('Added successfully!');
+            MapPicture::create(
+                [
+                    'scanned_map' => $imgFile->getClientOriginalName(),
+                    'drone_id' => $droneID,
+                    'farm_id' => $farmID,
+                ]
+            );
+
+            return response($imgFile->getClientOriginalName());
         }
     }
 
     public function downloadImg($location, $id)
     {
-        dd(Auth::user());
-        if (Auth::user()->role === 'drone') {
-            $locationID = Province::where('name', $location)->id;
-            $filePath = MapPicture::find($id)->where('drone_id', Auth::user()->id)->scanned_map;
-            // return Storage::download($filePath);
-            dd($filePath);
-        }
+        $locationID = Province::where('name', $location)
+            ->get('id')
+            ->first()
+            ->id;
+        $farmID = Farm::where('province_id', $locationID)
+            ->get();
+
+        return MapPicture::find($farmID);
     }
 }

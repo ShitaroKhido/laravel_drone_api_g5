@@ -21,6 +21,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 
+Route::get('/maps/{location}/{id}', [DroneController::class, 'downloadImg']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // Uploading image:
@@ -32,7 +33,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // plan name :
     Route::get('/plan/{name}', [PlanController::class, 'reqestPlanName']);
     // Download maps:
-    Route::get('/maps/{location}/{id}', [DroneController::class, 'downloadImg']);
     // Get Map:
     Route::resource('/map_pictures', MapPictureController::class);
     // Get Plan:

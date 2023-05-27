@@ -145,23 +145,29 @@ class DroneController extends Controller
             ->get('id')
             ->first()
             ->id;
-        $farmID = Farm::where('province_id', $locationID)
-            ->get('id')
-            ->first()->id;
-        $picName  = MapPicture::where(
-            'farm_id',
-            $farmID
-        )->get('scanned_map')
-            ->last()
-            ->scanned_map;
+        $farmID = Farm::find($id)->province_id;
 
-        $path = storage_path("app\public\images\\") . $picName;
+        if ($farmID === $locationID) {
+            // dd($farmID);
+            $picName  = MapPicture::where(
+                'farm_id',
+                $farmID
+            )->get('scanned_map')
+                ->last()
+                ->scanned_map;
 
-        if (File::exists($path)) {
+            $path = storage_path("app\public\images\\") . $picName;
 
-            return response()->download($path);
+            if (File::exists($path)) {
+
+                return response()->download($path);
+            }
+            return $this->error(null, 'No were map found for this farm!', 404);
         }
+        return $this->error(null, "This farm dosen't exist in this location!", 404);
+    }
 
-        return $this->error(null, 'Map is unavailable!', 404);;
+    public function deleteMap()
+    {
     }
 }

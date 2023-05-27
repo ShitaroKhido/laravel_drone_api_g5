@@ -15,14 +15,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/upload', [DroneController::class, 'sendImage']);
 
 // update  instrct drone by id 
-Route::put('/drones/{id}', [DroneController::class , 'instructDroneById']);
+Route::put('/drones/{id}', [DroneController::class, 'instructDroneById']);
 // Instruction 
-Route::get('/instructions' , [InstructionController::class, 'requestDroneInstructions']);
+Route::get('/instructions', [InstructionController::class, 'requestDroneInstructions']);
+
+
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/download/{location}/{id}', [DroneController::class, 'downloadImg']);
     // Get Map:
     Route::resource('/map_pictures', MapPictureController::class);
     // Get Plan:

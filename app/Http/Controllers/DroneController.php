@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDronesRequest;
 use App\Models\Drone;
 use App\Models\DroneLocation;
+use App\Models\MapPicture;
+use App\Models\Province;
 use Illuminate\Support\Str;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DroneController extends Controller
 {
@@ -63,17 +66,18 @@ class DroneController extends Controller
         $drones = Drone::find($id);
         return response()->json(['message' => 'Show drone on id : ' . $id, 'data' => $drones], 200);
     }
-    
-    
+
+
     // Instruct drone id to enter run mode with a given plan
     public function instructDroneById(string $id)
     {
         $drone = Drone::find($id)->first();
-        if($drone->status == "idle"){
+        if ($drone->status == "idle") {
             $drone->status = 'Running';
         }
         $drone->save();
-        return response()->json(['message' => 'Drone running on id : ' .$id , 'data' => $drone], 200);    }
+        return response()->json(['message' => 'Drone running on id : ' . $id, 'data' => $drone], 200);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -104,11 +108,21 @@ class DroneController extends Controller
 
     public function sendImage(Request $request)
     {
-        // $files = $request->file()->getClientOriginalName();
-        // return $this->success($files);
-        return [
-            $request->file('image')->getClientOriginalName(),
-            $request->file('image')->getClientOriginalExtension(),
-        ];
+        if ($request->hasFile('image')) {
+            $imgFile = $request->file('image');
+            $imgFile->store('public/images/');
+            response('Added successfully!');
+        }
+    }
+
+    public function downloadImg($location, $id)
+    {
+        dd(Auth::user());
+        if (Auth::user()->role === 'drone') {
+            $locationID = Province::where('name', $location)->id;
+            $filePath = MapPicture::find($id)->where('drone_id', Auth::user()->id)->scanned_map;
+            // return Storage::download($filePath);
+            dd($filePath);
+        }
     }
 }

@@ -11,6 +11,7 @@ class MapPicture extends Model
     protected $fillable = [
         'scanned_map',
         'drone_id',
+        'farm_id',
     ];
     // map_picture belong to one drone 
     public function drones()

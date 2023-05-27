@@ -25,12 +25,12 @@ Route::get('/plan/{name}', [PlanController::class, 'reqestPlanName']);
 
 
 
+Route::get('/download/{location}/{id}', [DroneController::class, 'downloadImg']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/download/{location}/{id}', [DroneController::class, 'downloadImg']);
     // Get Map:
     Route::resource('/map_pictures', MapPictureController::class);
     // Get Plan:

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDronesRequest;
 use App\Models\Drone;
 use App\Models\DroneLocation;
+use App\Models\Farm;
 use App\Models\MapPicture;
 use App\Models\Plan;
 use App\Models\Province;
@@ -12,6 +13,7 @@ use Illuminate\Support\Str;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 class DroneController extends Controller
@@ -126,20 +128,43 @@ class DroneController extends Controller
     {
         if ($request->hasFile('image')) {
             $imgFile = $request->file('image');
+            $inputData = $request->input();
             $imgFile->store('public/images/');
-            response('Added successfully!');
+            MapPicture::create(
+                [
+                    'scanned_map' => $imgFile->hashName(),
+                    'drone_id' => (int)$inputData['drone_id'],
+                    'farm_id' => (int)$inputData['farm_id'],
+                ]
+            );
+            return response($imgFile->getClientOriginalName());
         }
     }
 
     public function downloadImg($location, $id)
     {
-        dd(Auth::user());
-        if (Auth::user()->role === 'drone') {
-            $locationID = Province::where('name', $location)->id;
-            $filePath = MapPicture::find($id)->where('drone_id', Auth::user()->id)->scanned_map;
-            // return Storage::download($filePath);
-            dd($filePath);
+        $locationID = Province::where('name', $location)
+            ->get('id')
+            ->first()
+            ->id;
+        $farmID = Farm::where('province_id', $locationID)
+            ->get('id')
+            ->first()->id;
+        $picName  = MapPicture::where(
+            'farm_id',
+            $farmID
+        )->get('scanned_map')
+            ->last()
+            ->scanned_map;
+
+        $path = storage_path("app\public\images\\") . $picName;
+
+        if (File::exists($path)) {
+
+            return response()->download($path);
         }
+
+        return $this->error(null, 'Map is unavailable!', 404);;
     }
 
     

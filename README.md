@@ -17,23 +17,23 @@
 
 This part contain the method and option that can be use with drone side.
 
-| PATH                    |            Descriptions             | Method |
-| :---------------------- | :---------------------------------: | -----: |
-| /api/instruction/1      |      Request new instructions       |    GET |
-| /api/plan/order11       |        Request plan by name         |    GET |
-| /api/drone/{id}         | Update the system of current status |    PUT |
-| /api/maps/Kampongcham/1 |    Upload farm map from location    |   POST |
+| PATH                       |            Descriptions             | Method |
+| :------------------------- | :---------------------------------: | -----: |
+| /api/instruction/{droneId} |      Request new instructions       |    GET |
+| /api/plan/{orderName}      |        Request plan by name         |    GET |
+| /api/drone/{id}            | Update the system of current status |    PUT |
+| /api/maps/{province}/{id}  |    Upload farm map from location    |   POST |
 
 ## Data Input for URI with POST and PUT method
 
--   `/api/plans` from farmer controll take input as the following below
+- `/api/plans` from farmer controll take input as the following below
 
     ```note
       name: string
 
     ```
 
--   `/api/drone/{id}` from drone controll take input as the following below
+- `/api/drone/{id}` from drone controll take input as the following below
 
     ```json
     {
@@ -47,6 +47,6 @@ This part contain the method and option that can be use with drone side.
 
 `NOTE`
 
--   Most of the PUT method are using JSON format for its request data.
+- Most of the PUT method are using JSON format for its request data.
 
--   Others resource code can be checked inside the `route/api.php` folder.
+- Others resource code can be checked inside the `route/api.php` folder.
